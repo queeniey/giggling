@@ -4,41 +4,67 @@
 <t:layout>
 	<jsp:attribute name="header">
 		<title>登录</title>
-		<link rel="stylesheet" type="text/css" href="content/css/login.css" />
+		<script type="text/javascript" src="content/js/lib/jquery-1.11.1.min.js"></script>
+		<!-- <link rel="stylesheet" type="text/css" href="content/css/login.css" />
         <link rel="stylesheet" type="text/css" href="content/lib/bootstrap/css/bootstrap.min.css">
-        <script type="text/javascript" src="content/js/lib/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="content/js/lib/public/public.js"></script>
+        <script type="text/javascript" src="content/js/lib/public/public.js"></script> -->
+        <link href="content/css/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="content/css/lib/components.min.css" rel="stylesheet" type="text/css">
+  <link href="content/css/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="content/css/login.css" rel="stylesheet" type="text/css">
+  <style>@-moz-keyframes nodeInserted{from{opacity:0.99;}to{opacity:1;}}@-webkit-keyframes nodeInserted{from{opacity:0.99;}to{opacity:1;}}@-o-keyframes nodeInserted{from{opacity:0.99;}to{opacity:1;}}@keyframes nodeInserted{from{opacity:0.99;}to{opacity:1;}}embed,object{animation-duration:.001s;-ms-animation-duration:.001s;-moz-animation-duration:.001s;-webkit-animation-duration:.001s;-o-animation-duration:.001s;animation-name:nodeInserted;-ms-animation-name:nodeInserted;-moz-animation-name:nodeInserted;-webkit-animation-name:nodeInserted;-o-animation-name:nodeInserted;}</style>
 	</jsp:attribute>
 	<jsp:body>
 		<t:common />
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
-					<form class="form-horizontal" role="form">
-						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-3 control-label">账号</label>
-							<div class="col-sm-9">
-								<input id="account" name="account" type="text" class="form-control" id="inputEmail3" placeholder="Email">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="inputPassword3" class="col-sm-3 control-label">密码</label>
-							<div class="col-sm-9">
-								<input id="pwd" name="pwd" type="password" class="form-control" id="inputPassword3" placeholder="Password">
-							</div>
-						</div>
-						<!-- <div class="form-group"><div class="checkbox"><div class="col-sm-offset-3 col-sm-9">
-							<label><input type="checkbox">Remember me</label>
-						</div></div></div> -->
-						<div class="form-group">
-							<div class="col-sm-offset-3 col-sm-9">
-								<span id="loginSubmit" class="btn btn-default">登陆</span>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
+		    <div class="login">
+		     <div class="logo"></div>
+		     <div class="content">
+		         <form class="login-form" action="" method="post" novalidate="novalidate">
+		              <h3 class="form-title">管理员登录</h3>
+		
+		             <div class="alert alert-danger display-hide" style="padding:10px;">
+		                 <button class="close" data-close="alert"></button> <span> 请输入用户和密码。 </span>
+		
+		             </div>
+		             <div class="form-group">
+		                 <label class="control-label visible-ie8 visible-ie9">用户名</label>
+		                 <div class="input-icon"> <i class="fa fa-user"></i>
+		
+		                     <input id="account" name="account" class="form-control placeholder-no-fix valid" type="text" autocomplete="off" placeholder="用户名" name="username" aria-required="true" aria-invalid="false" aria-describedby="username-error">
+		                 </div>
+		             </div>
+		             <div class="form-group">
+		                 <label class="control-label visible-ie8 visible-ie9">密码</label>
+		                 <div class="input-icon"> <i class="fa fa-lock"></i>
+		
+		                     <input id="pwd" name="pwd" class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password">
+		                 </div>
+		             </div>
+		             <div class="form-actions">
+		                 <span id="loginSubmit" class="btn green pull-right">登录</span>
+		             </div>
+		         </form>
+		     </div>
+		     <div class="copyright">2016 ©giggling</div>
+		    </div>
+		    <script type="text/javascript">
+		    	//此行代码必须放在引入seajs之前，否则无效
+		    	var base_path = "./content/";
+		    </script>
+		    <script src="content/js/lib/seajs.js" type="text/javascript"></script>
+		    <script src="content/js/lib/seajs-css.js" type="text/javascript"></script>
+		    <script src="content/js/lib/seajs-config.js" type="text/javascript"></script>
+		    <script type="text/javascript">
+		      seajs.use("js/lib/jquery.min",function(a,b){
+		       	 seajs.use("./content/js/lib/jquery.validate.min");
+		         seajs.use("./content/js/lib/bootstrap.min");
+		         seajs.use("./content/js/lib/jquery.backstretch.min");
+		         seajs.use("./content/js/lib/jquery-validation-additional");
+		         seajs.use("./content/js/login");
+		       });
+		    </script>
+		  <div class="backstretch" style="left: 0px; top: 0px; z-index: -999999; position: fixed;"></div>
+		
 		<script>
 			$("#loginSubmit").click(function(){
 				var ac = $("#account").val(), pwd = $("#pwd").val();

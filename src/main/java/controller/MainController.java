@@ -47,7 +47,14 @@ public class MainController extends BaseController {
 	 * 登录页面
 	 */
 	public void login() {
-		renderJsp("login.jsp");
+		if(this.isLog()){ // 已经登陆，跳转至用户首页
+			redirect("/user/index");
+		}else{
+			renderJsp("login.jsp");
+		}
+	}
+	public void login_two() {
+		renderJsp("login_two.jsp");
 	}
 	/**
 	 * 登陆提交

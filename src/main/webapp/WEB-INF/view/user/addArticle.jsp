@@ -24,6 +24,22 @@
     </jsp:attribute>
 	<jsp:body>
 		<t:common />
+	<div class="container">
+	  <t:adminHead cur="2"/>
+	  	 <!-- 添加文章 -->
+		 <div class="row clearfix">
+		   <div class="col-md-8 column">
+		
+		   </div>
+		   <div class="col-md-4 column">
+		     <button type="button" class="btn btn-default btn-info btn-sm">按钮</button>
+		     <button type="button" class="btn btn-default btn-sm">按钮</button>
+		   </div>
+		   <hr>
+		   <div class="mt-10"><button type="button" class="btn btn-lg btn-block btn-primary">提交</button></div>
+		 </div>
+		 <!-- 添加文章 -->
+	 </div>
 		<div>
 			<span>文章标题</span>
 			<input id="title" />
@@ -31,6 +47,13 @@
 		<div>
 			<span>文章摘要</span>
 			<textarea id="desc"></textarea>
+		</div>
+		<div>
+			<span>添加标签</span>
+			<select id="tag">
+				<option>生活</option>
+				<option>日记</option>
+			</select>
 		</div>
 		<script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
 		<div>
