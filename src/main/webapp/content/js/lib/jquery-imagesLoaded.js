@@ -73,7 +73,7 @@ $('.thumbnail').each(function(){
 //external link
 //$("a[href]:not([href^='http://myfairland.net'], [href^='#'])").addClass("outlink").attr("target","_blank");
 
-$("a[href]:not([href^='http://" + window.location.host + "'])").not("a[href^='#']").addClass("outlink").attr("target","_blank");
+//$("a[href]:not([href^='http://" + window.location.host + "'])").not("a[href^='#']").addClass("outlink").attr("target","_blank");
 
 
 //search form effect

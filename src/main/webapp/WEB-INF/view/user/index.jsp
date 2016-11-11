@@ -42,31 +42,37 @@
          </tr>
        </thead>
        <tbody>
+       	<c:forEach items="${list}" var="vo" varStatus="status">
          <tr class="success">
            <td>
-             1
+             ${ (page-1)*psize + status.index + 1}
            </td>
            <td>
-             TB - Monthly
+             ${ vo.title}
            </td>
            <td>
-             01/04/2012
+             <date:date pattern="yyyy-MM-dd hh:mm" value="${vo.add_time!=null?vo.add_time*1000 : 0}"></date:date>
            </td>
            <td>
-             <a href="#" class="btn btn-default btn-info">编辑</a>
-             <a href="#" class="btn btn-default btn-danger">删除</a>
+             <a href="user/addArticle?id=${vo.id }" class="btn btn-default btn-info">编辑</a>
+             <a href="javascript:void(0);" class="delBtn btn btn-default btn-danger" data-id="${vo.id }">删除</a>
            </td>
          </tr>
+         </c:forEach>
        </tbody>
      </table>
      <ul class="pagination">
-        <li><a href="#">&laquo;</a></li>
-        <li><a href="#">1</a></li>
+     	<c:forEach var="i" begin="1" end="${pcount }" step="1">
+     		<li${page==i?' class="active"':'' }><a href="user/index?page=${i}">${i}</a></li>
+     	</c:forEach>
+        
+     	<!-- <li><a href="#">&laquo;</a></li>
+        <li class="active"><a href="#">1</a></li>
         <li><a href="#">2</a></li>
         <li><a href="#">3</a></li>
         <li><a href="#">4</a></li>
         <li><a href="#">5</a></li>
-        <li><a href="#">&raquo;</a></li>
+        <li><a href="#">&raquo;</a></li> -->
     </ul>
    </div>
  </div>
@@ -80,5 +86,22 @@
  <!-- 文章列表 -->
 
 </div>
+
+<script>
+	$(".delBtn").click(function(){
+		var _this = $(this),  id = _this.attr("data-id");
+		layer.confirm('确定删除', {icon: 2, title:'提示'}, function(index){
+			$.post("user/delArticle", {id:id}, function(rst){
+				layer.msg(rst.msg);
+				if(rst.status==1){
+					_this.parents("tr").slideUp("slow");
+					
+				}
+			});
+		  	layer.close(index);
+		});
+		
+	});
+</script>
 </jsp:body>
 </t:layout>

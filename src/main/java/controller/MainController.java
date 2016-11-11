@@ -20,11 +20,13 @@ public class MainController extends BaseController {
 	public void index() {
 		ArticleImpl i = new ArticleImpl();
 		Integer pNu = getParaToInt("page");
-		if("".equals(pNu)){
+		if(pNu==null || pNu<=0){
 			pNu = 1;
 		}
-		List<Article> page = i.queryBySql(null, pNu, 8);
-		setAttr("list", page);	
+		PageUtil<Article> page = i.getPgList("id!=1", null, pNu, 8);
+		setAttr("list", page.getList());	
+		setAttr("pNu", page.getPage());	
+		setAttr("pcount", page.getPagecount());
 	    renderJsp("index.jsp");
 	}
 	/**
@@ -39,9 +41,28 @@ public class MainController extends BaseController {
 		}else{
 			a = i.getArticleById(id);
 			setAttr("vo", a);
+			
+			String tid = a.getTags();
+			
+			String url = getRequest().getRequestURL().toString()+ "?" + getRequest().getQueryString().toString();
+			setAttr("url", url);
 		    renderJsp("detail.jsp");
 		}	
 	}
+	
+	public void about() {
+		ArticleImpl i = new ArticleImpl();
+		Article a = new Article();
+		Long id = new Long(1);
+		if(id == null || "".equals(id)){
+			redirect("index");
+		}else{
+			a = i.getArticleById(id);
+			setAttr("vo", a);
+		    renderJsp("detail.jsp");
+		}	
+	}
+	
 	
 	/**
 	 * 登录页面
@@ -52,6 +73,12 @@ public class MainController extends BaseController {
 		}else{
 			renderJsp("login.jsp");
 		}
+	}
+	public void logout() {
+		Browse b = tk.getBrowse();
+		b.setUserID(-1);
+		tk.saveBrowse();
+		redirect("/");
 	}
 	public void login_two() {
 		renderJsp("login_two.jsp");

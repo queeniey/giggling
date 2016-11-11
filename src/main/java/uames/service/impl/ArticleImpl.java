@@ -65,33 +65,36 @@ public class ArticleImpl  extends BaseImpl<Article> implements IArticle {
 	 * @return
 	 */
     public List<Article> queryBySql(String where,Integer pNu, Integer count) {
+    	
+    	return this.getPgList(where, null, pNu, count).getList();
 
+       
+    }   
+    
+    public PageUtil<Article> getPgList(String where, String columns, Integer pNu,
+            Integer pSize, String orderby) {
         try {
-            StringBuffer buffer = new StringBuffer();
-            buffer.append("select art.title,art.id,art.cat_id,art.content,art.desc,art.thumb from article art ");
-            if (where != null) {
-                buffer.append(" where " + where);
-                buffer.append(" AND status>0 ");
+            total = count(where);
+            if (pSize != null) {
+                this.pSize = pSize;
             }
-            buffer.append(" order by id");
-            if(count!=null && count>0)
-            	buffer.append("  limit " + count);
-            
-            List<Record> list = Db.find(buffer.toString());
-            List<Article> vos = new ArrayList<Article>();
-            for(Article a : vos){
-            }
-            for (Record record : list) {
-            	Article obj = createPo();
-                SetValueFromRecord.copyProtis(obj, record);
-                vos.add(obj);
-            }
-            return vos;
+            pCount = Integer.valueOf(String.valueOf(total / this.pSize
+                    + (total % this.pSize > 0 ? 1 : 0)));
+            this.pNu = pNu == null ? 1 : (pCount < pNu ? pCount : pNu);
+            page = new PageUtil<Article>();
+            page.setList(queryBySql(where, columns, orderby, (this.pNu - 1) * pSize,
+                    pSize));
+            page.setCount(total);
+            page.setPagecount(pCount);
+            page.setPage(pNu);
+            page.setStatus(1);
         } catch (Exception e) {
             e.printStackTrace();
+            page.setStatus(0);
         }
-        return null;
-    }   
+
+        return page;
+    }
 
     public PageUtil<Article> getList(Map<String, String> t_where, String columns, Integer pNu, Integer pSize) {
         try{

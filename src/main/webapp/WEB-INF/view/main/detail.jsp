@@ -17,6 +17,7 @@
 
         <script type="text/javascript" src="content/js/lib/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="content/js/lib/jquery-imagesLoaded.js"></script>
+        
     </jsp:attribute>
 	<jsp:body>
     	<div id="wrapper1"><div id="wrapper2"><div id="content">
@@ -25,22 +26,28 @@
 			<div class="main_post">
 				<span class="main_post_top"></span>
 				<h1 class="storytitle">
-					<a href="${basePath }/detail?id=${vo.id }">Mythbusters 流言终结者分集剧情简介：第十一季流言及结论</a>
+					<a href="${basePath }/detail?id=${vo.id }">${vo.title }</a>
 				</h1>
 				<div class="main_postinfo">
-					<a href="#ds-thread">暂无评论</a> | 标签：
-					<a href="/tag/" rel="tag">电视</a> | 作者：${vo.author } | ${vo.add_time }
-					<date:date pattern="toNowM" value="${vo.add_time!=null?vo.add_time : 0}"></date:date>
+					<a href="#ds-thread">暂无评论</a> <!-- | 标签： -->
+					<c:forEach items="${tags}" var="tag">
+						<a href="${basePath }/tagArticle?id=${tag.id } rel="tag">${tag.name }</a>
+					</c:forEach> | 作者：${vo.author } | 
+					<date:date pattern="yyyy-MM-dd hh:mm" value="${vo.add_time!=null?vo.add_time*1000 : 0}"></date:date>
 				</div>
 				
 				<img src="content/img/line.gif" alt="line" class="line">		
 						
 						<div class="post-content">
 							
+				${vo.content }
 				
 				
-				
-				<p id="copyright"><small class="main_postinfo">本文作者：<a href="http://myfairland.net/">Betty</a> | 本文地址: <a href="http://myfairland.net/mythbusters-11/">http://myfairland.net/mythbusters-11/</a><br>本站文章除特殊标明者外均为原创，版权所有，如需转载，请以超链接形式注明作者和原始出处及本声明</small></p>
+				<p id="copyright">
+				<small class="main_postinfo">本文作者：
+				<a href="http://myfairland.net/">${vo.author }</a> | 本文地址: 
+				<a href="${url }">${url }</a>
+				<br>本站文章除特殊标明者外均为原创，版权所有，如需转载，请以超链接形式注明作者和原始出处及本声明</small></p>
 				
 				
 				
@@ -74,7 +81,7 @@
 				
 				
 				
-				<h4>你可能感兴趣：</h4>
+				<!-- <h4>你可能感兴趣：</h4>
 				<div>
 							<div class="item"><a href="http://myfairland.net/mythbusters-9/" rel="bookmark">
 							<div class="img-wrapper">
@@ -100,7 +107,7 @@
 							<div class="title">
 								深夜食堂			</div>
 						</a></div>
-					</div>
+					</div> -->
 				<div style="clear:both"></div>
 				</div>
 				<div id="bdshare" class="bdshare_b" style="float: none;height: 24px;margin: 0 0 20px 250px;">
@@ -109,13 +116,44 @@
 						</div>
 						
 						<!-- prev and next post -->
-						<div class="navigation">
+						<!-- <div class="navigation">
 							上一篇：<a href="http://myfairland.net/office-library-not-registered/" rel="prev">Office“库没有注册”问题</a><br>
-							下一篇：<a href="http://myfairland.net/movie-201303/" rel="next">看片总结 2013 年 3 月 007 系列</a>		</div>
+							下一篇：<a href="http://myfairland.net/movie-201303/" rel="next">看片总结 2013 年 3 月 007 系列</a>		
+							</div> -->
 						
 						<span class="main_post_bottom"></span>
 					</div>
+					
+					<div class="main_post">
+						<span class="main_post_top2"></span>
+							<!-- 多说评论框 start -->
+							<div class="ds-thread" data-thread-key="${vo.id }" data-title="${vo.title }" data-url="${url }"></div>
+							<!-- 多说评论框 end -->
+							<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+							<script type="text/javascript">
+							var duoshuoQuery = {short_name:"giggling"};
+								(function() {
+									var ds = document.createElement('script');
+									ds.type = 'text/javascript';ds.async = true;
+									ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+									ds.charset = 'UTF-8';
+									(document.getElementsByTagName('head')[0] 
+									 || document.getElementsByTagName('body')[0]).appendChild(ds);
+								})();
+								</script>
+							<!-- 多说公共JS代码 end -->
+						<span class="main_post_bottom"></span>
+						
+					</div>
 		
 		</div></div></div>
+		
+		
+		
+		
+		
+		
+		
+
 	</jsp:body>
 </t:layout>

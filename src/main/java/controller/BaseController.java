@@ -22,6 +22,7 @@ public class BaseController extends Controller {
 	protected String viewPath = "";
 	private WebResult jsonResult;
 	public Integer pageSize;
+	public Long userId;
 	
 	public BaseController() {
 		super();
@@ -46,6 +47,7 @@ public class BaseController extends Controller {
 	protected boolean isLog(){
 		Browse b = tk.getBrowse();
 		if(b.getUserID() > 0){
+			this.userId = b.getUserID();
 			return true;
 		}else{
 			return false;
@@ -57,15 +59,6 @@ public class BaseController extends Controller {
 		setAttr("blog",DefaultConfig.getPropery("blog"));
 		setAttr("basePath", DefaultConfig.getPropery("basePath"));
 	    setAttr("tk", tk);
-	    List<Article> menus = new ArrayList<Article>();
-        menus = new ArticleImpl().queryBySql(" cat_id= 16 ",0,0);
-        setAttr("maa", ArticleVo.createList(menus)); 
-        
-//	    if(HttpRequestDeviceUtils.isMobileDevice(getRequest()) && getPhoneJsp(f)){
-//	        this.redirect(tk.getSslHost() + "/m/index");
-//	    }else{
-//            super.renderJsp(viewPath + f);
-//	    }
 	    super.renderJsp(viewPath + f);
 	}
 }
