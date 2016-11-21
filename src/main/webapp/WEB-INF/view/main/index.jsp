@@ -14,7 +14,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" type="text/css" href="content/css/main-index.css">
-
         <script type="text/javascript" src="content/js/lib/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="content/js/lib/jquery-imagesLoaded.js"></script>
     </jsp:attribute>

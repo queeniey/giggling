@@ -1,12 +1,11 @@
 package controller;
 
-import java.util.List;
-
 import uames.po.Article;
 import uames.po.User;
 import uames.service.impl.ArticleImpl;
 import uames.service.impl.UserImpl;
 import uames.util.Browse;
+import uames.util.HttpRequestDeviceUtils;
 import uames.util.PageUtil;
 
 public class MainController extends BaseController {
@@ -27,7 +26,11 @@ public class MainController extends BaseController {
 		setAttr("list", page.getList());	
 		setAttr("pNu", page.getPage());	
 		setAttr("pcount", page.getPagecount());
-	    renderJsp("index.jsp");
+		if(HttpRequestDeviceUtils.isMobileDevice(getRequest())){
+			renderJsp("mindex.jsp");
+		}else{
+		    renderJsp("index.jsp");
+		}
 	}
 	/**
 	 * 文章详情
@@ -46,7 +49,12 @@ public class MainController extends BaseController {
 			
 			String url = getRequest().getRequestURL().toString()+ "?" + getRequest().getQueryString().toString();
 			setAttr("url", url);
-		    renderJsp("detail.jsp");
+		    
+		    if(HttpRequestDeviceUtils.isMobileDevice(getRequest())){
+		    	renderJsp("mdetail.jsp");
+			}else{
+				renderJsp("detail.jsp");
+			}
 		}	
 	}
 	
@@ -59,7 +67,11 @@ public class MainController extends BaseController {
 		}else{
 			a = i.getArticleById(id);
 			setAttr("vo", a);
-		    renderJsp("detail.jsp");
+			if(HttpRequestDeviceUtils.isMobileDevice(getRequest())){
+		    	renderJsp("mdetail.jsp");
+			}else{
+				renderJsp("detail.jsp");
+			}
 		}	
 	}
 	
